@@ -9,3 +9,8 @@ export interface UserSession {
     status: string;
   } | null;
 }
+
+export interface LoginDtoProps {
+  email: string;
+  password: string;
+}
