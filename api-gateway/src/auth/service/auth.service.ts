@@ -1,9 +1,20 @@
 import { serviceConfig } from '@/config/gateway.config';
-import { UserSession } from '@/types';
 import { HttpService } from '@nestjs/axios';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { firstValueFrom } from 'rxjs';
+
+export interface UserSession {
+  valid: boolean;
+  user: {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    role: string;
+    status: string;
+  } | null;
+}
 
 @Injectable()
 export class AuthService {

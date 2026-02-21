@@ -1,8 +1,9 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from '../service/auth.service';
-import type { LoginDtoProps } from '@/types';
 import { Throttle } from '@nestjs/throttler';
+import { LogiinDto } from '@/auth/dtos/login.dto';
+import { RegisterDto } from '@/auth//dtos/register.dto';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -15,7 +16,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Successful login' })
   @ApiResponse({ status: 401, description: 'Invalid credentials' })
   @Throttle({ Short: { limit: 5, ttl: 60000 } })
-  async login(@Body() loginDto: LoginDtoProps) {
+  async login(@Body() loginDto: LogiinDto) {
     return this.authService.login(loginDto);
   }
 
@@ -25,7 +26,7 @@ export class AuthController {
   @ApiResponse({ status: 201, description: 'Registration successful' })
   @ApiResponse({ status: 401, description: 'Invalid registration data' })
   @Throttle({ medium: { limit: 3, ttl: 60000 } })
-  async register(@Body() registerDto: any) {
+  async register(@Body() registerDto: RegisterDto) {
     return this.authService.register(registerDto);
   }
 }
